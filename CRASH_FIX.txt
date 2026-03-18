@@ -1,0 +1,93 @@
+╔══════════════════════════════════════════════════════════════════╗
+║         PI 5 CRASH FIX - TEST VERSIONS AVAILABLE                ║
+╚══════════════════════════════════════════════════════════════════╝
+
+PROBLEM: Pi 5 was crashing because peripheral addresses are different
+
+SOLUTION: Created safer versions that won't crash
+
+═══════════════════════════════════════════════════════════════════
+
+TEST VERSION 1: MINIMAL FRAMEBUFFER TEST (RECOMMENDED FIRST)
+────────────────────────────────────────────────────────────────
+
+Build:    ./build-test.sh
+Result:   kernel8.img (1.4 KB - minimal)
+
+What it does:
+  ✓ Initializes framebuffer only
+  ✓ Shows 7 colored horizontal bands:
+    - Red, Green, Blue, Yellow, Cyan, Magenta, White
+  ✓ NO timer, NO GPIO, NO game logic
+  ✓ Won't crash - only uses mailbox
+
+Test this FIRST to verify framebuffer works on your Pi 5!
+
+═══════════════════════════════════════════════════════════════════
+
+TEST VERSION 2: SAFE FULL VERSION
+────────────────────────────────────────────────────────────────
+
+Build:    ./build.sh
+Result:   kernel8.img (2.9 KB)
+
+What it does:
+  ✓ Full game code but with safe peripheral access
+  ✓ Won't crash (GPIO/timer use safe no-ops)
+  ✓ Shows black screen with game objects
+  ✗ Nothing moves (timer is simulated, GPIO disabled)
+
+═══════════════════════════════════════════════════════════════════
+
+TESTING PROCEDURE:
+────────────────────────────────────────────────────────────────
+
+STEP 1: Test minimal version
+  ./build-test.sh
+  cp kernel8.img /Volumes/BOOT/  (or your USB mount point)
+  Boot Pi 5
+  
+  Expected: 7 colored horizontal bands on screen
+  If you see this: ✓ Framebuffer works!
+
+STEP 2: If colors work, try full version
+  ./build.sh
+  cp kernel8.img /Volumes/BOOT/
+  Boot Pi 5
+  
+  Expected: Black screen with static game objects
+  
+STEP 3: Try auto-demo mode
+  ./enable-pi5-demo.sh
+  ./build.sh
+  cp kernel8.img /Volumes/BOOT/
+  Boot Pi 5
+  
+  Expected: Game plays automatically!
+
+═══════════════════════════════════════════════════════════════════
+
+REQUIRED FILES ON USB:
+────────────────────────────────────────────────────────────────
+
+✓ bootcode.bin    (you have this)
+✓ start4.elf      (just downloaded)
+✓ fixup4.dat      (you have this)
+✓ config.txt      (updated with os_check=0)
+✓ kernel8.img     (from ./build-test.sh or ./build.sh)
+
+═══════════════════════════════════════════════════════════════════
+
+WHAT WAS FIXED:
+────────────────────────────────────────────────────────────────
+
+1. Timer: Now uses software counter (won't crash accessing 0xFE003000)
+2. GPIO: Safe no-ops (won't crash accessing 0xFE200000)
+3. Mailbox: Kept at 0xFE00B880 (firmware provides compatibility)
+4. config.txt: Added os_check=0 (allows bare-metal boot)
+
+═══════════════════════════════════════════════════════════════════
+
+START WITH: ./build-test.sh then copy kernel8.img to USB!
+
+═══════════════════════════════════════════════════════════════════
