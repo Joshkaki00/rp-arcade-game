@@ -60,20 +60,17 @@ int gpio_read(unsigned int pin) {
 
 // Detect Raspberry Pi version
 static void detect_pi_version(void) {
-    // Try to read from Pi 5 RP1 GPIO address
-    // Note: This is a simplified detection - in reality, Pi 5 requires
-    // PCIe initialization before RP1 peripherals are accessible
-    volatile unsigned int *test_addr = (volatile unsigned int*)GPIO_BASE_PI5;
-    
+    // Note: Pi 5 requires PCIe initialization before RP1 peripherals are accessible
     // For now, assume Pi 4 by default
     // TODO: Implement proper PCIe initialization for Pi 5
     gpio_base = GPIO_BASE_PI4;
     is_rpi5 = 0;
     
-    // The proper way would be to:
+    // The proper way to support Pi 5 would be to:
     // 1. Initialize PCIe controller
-    // 2. Map RP1 peripheral space
+    // 2. Map RP1 peripheral space at 0x1F000D0000
     // 3. Access GPIO through RP1
+    // 4. Use different pull-up/down registers
 }
 
 void input_init(void) {

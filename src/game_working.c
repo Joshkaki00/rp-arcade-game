@@ -7,7 +7,7 @@
 #define MAX_ENEMIES 5
 
 // Set to 1 for auto-demo mode (Pi 5 without GPIO)
-#define AUTO_DEMO_MODE 1
+#define AUTO_DEMO_MODE 0
 
 typedef struct {
     int x, y;
