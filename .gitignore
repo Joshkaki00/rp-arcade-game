@@ -143,4 +143,15 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/git,macos,visualstudiocode,c,cmake
 
+# Raspberry Pi firmware files
+bootcode.bin
+start4.elf
+fixup4.dat
+kernel8.img
+*.elf
+
+# Temp/backup files
+temp
+temp_*
+
 *temp*

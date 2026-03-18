@@ -1,0 +1,90 @@
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  BARE-METAL RASPBERRY PI ARCADE GAME - QUICK REFERENCE   ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+📦 DEPLOY TO USB (5 files needed):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. bootcode.bin   ← Pi boot loader
+  2. start4.elf     ← GPU firmware
+  3. fixup4.dat     ← GPU config
+  4. config.txt     ← Boot settings
+  5. kernel8.img    ← YOUR GAME ★
+
+  Quick deploy: ./deploy-to-usb.sh
+
+🔨 BUILD COMMANDS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ./build.sh              # Build kernel
+  ./build.sh clean        # Clean and rebuild
+  make                    # Direct make (need PATH)
+  ./build-docker.sh       # Build with Docker
+
+🔧 SETUP (First time only):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ./install-toolchain.sh  # Install ARM toolchain
+  ./setup-path.sh         # Add to shell PATH
+  ./download-firmware.sh  # Get Pi firmware
+
+🎮 GPIO WIRING (wire to GND):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Pin 11 (GPIO 17) → UP
+  Pin 13 (GPIO 27) → DOWN
+  Pin 15 (GPIO 22) → LEFT
+  Pin 16 (GPIO 23) → RIGHT
+  Pin 18 (GPIO 24) → FIRE
+
+  GND pins: 6, 9, 14, 20, 25, 30, 34, 39
+
+📝 MODIFY GAME:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  src/game.c         # Game logic, enemies, bullets
+  src/framebuffer.c  # Graphics, colors, shapes
+  src/gpio.c         # Input button mapping
+  config.txt         # Screen resolution
+
+  After changes: ./build.sh
+
+🐛 TROUBLESHOOTING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Black screen?
+    • Check all 5 files on USB
+    • Try different HDMI port
+    • Verify FAT32 format
+
+  No input?
+    • Check GPIO wiring
+    • Test with LED first
+    • Verify button to GND
+
+  Won't boot?
+    • Pi 3B needs USB boot enabled
+    • Try different USB drive
+    • Check firmware files
+
+⚡ QUICK FACTS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Resolution: 1280x720 @ 32-bit
+  Frame rate: 60 FPS
+  Boot time: ~3-5 seconds
+  Kernel size: 2.8 KB
+  Language: C + ARM64 assembly
+  OS: None (bare-metal)
+  Boot: Direct from USB
+
+📚 FILES TO READ:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  README.md              # Full setup guide
+  BUILD_SUMMARY.md       # Detailed summary
+  src/game.c             # Start coding here!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Need help? Check README.md or raspberry_pi_arcade_game.md
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -22,28 +22,95 @@ If using physical buttons instead of USB keyboard:
 
 All buttons should be wired between the GPIO pin and GND (pull-up resistors are configured in software).
 
+## Quick Start
+
+### 1. Install Toolchain (First Time Only)
+
+```bash
+./install-toolchain.sh
+```
+
+This downloads and installs the AArch64 bare-metal toolchain to `~/.local/aarch64-toolchain/`.
+
+### 2. Build the Kernel
+
+```bash
+./build.sh
+```
+
+This compiles `kernel8.img` (your game binary).
+
+### 3. Download Firmware Files
+
+```bash
+./download-firmware.sh
+```
+
+This downloads the required Raspberry Pi firmware files.
+
+### 4. Prepare USB Drive
+
+1. Format a USB drive as **FAT32**
+2. Copy these files to the root of the drive:
+   - `bootcode.bin`
+   - `start4.elf`
+   - `fixup4.dat`
+   - `config.txt`
+   - `kernel8.img`
+
+### 5. Boot!
+
+1. Insert USB drive into Raspberry Pi
+2. Connect HDMI monitor
+3. Power on
+4. Your game boots automatically!
+
 ## Building
 
-### Install ARM Toolchain
+You have three options to build the kernel:
 
-On Ubuntu/Debian:
+### Option 1: Install AArch64 Toolchain Locally
+
+#### On macOS:
+```bash
+# Run the provided installation script
+./install-toolchain.sh
+
+# Add to PATH
+export PATH="$HOME/.local/aarch64-toolchain/bin:$PATH"
+
+# Or add permanently to ~/.zshrc
+echo 'export PATH="$HOME/.local/aarch64-toolchain/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+#### On Ubuntu/Debian:
 ```bash
 sudo apt update
-sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi gdb-multiarch make
+sudo apt install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu make
 ```
 
-On macOS:
-```bash
-brew install --cask gcc-arm-embedded
-```
-
-### Compile
-
+Then build:
 ```bash
 make
 ```
 
-This will generate `kernel8.img`.
+### Option 2: Build with Docker (Easiest, Cross-Platform)
+
+```bash
+# Make sure Docker is installed and running
+./build-docker.sh
+```
+
+The kernel will be in the `build/` directory.
+
+### Option 3: Manual Toolchain Override
+
+If you have a different AArch64 toolchain installed:
+```bash
+# Find your toolchain prefix (e.g., aarch64-linux-gnu, aarch64-elf, etc.)
+make ARMGNU=aarch64-linux-gnu
+```
 
 ## Deployment
 
