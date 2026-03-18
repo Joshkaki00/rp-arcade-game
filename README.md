@@ -4,11 +4,15 @@ A simple space shooter game written in pure C that boots directly from USB on Ra
 
 ## Hardware Requirements
 
-- Raspberry Pi 3B, 3B+, 4, or 5
+- Raspberry Pi 3B, 3B+, or 4 (fully supported)
+- Raspberry Pi 5 (partial support - see limitations below)
 - USB flash drive (FAT32 formatted, minimum 256MB)
 - HDMI monitor
 - USB keyboard or GPIO buttons
 - Power supply
+
+### Raspberry Pi 5 Limitations
+⚠️ **Note:** RPi 5 uses an RP1 chip for GPIO which requires PCIe initialization. Current version supports framebuffer display but GPIO button input may not work without additional RP1/PCIe driver code. A fix is being implemented.
 
 ## GPIO Button Wiring (Optional)
 
