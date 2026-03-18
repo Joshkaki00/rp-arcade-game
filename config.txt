@@ -1,0 +1,13 @@
+# Raspberry Pi 4/5
+arm_64bit=1
+kernel=kernel8.img
+disable_commandline_tags=1
+
+# GPU settings
+gpu_mem=128
+framebuffer_width=1280
+framebuffer_height=720
+framebuffer_depth=32
+
+# Disable rainbow splash
+disable_splash=1
