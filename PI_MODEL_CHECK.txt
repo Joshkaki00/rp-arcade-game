@@ -1,0 +1,23 @@
+# Raspberry Pi Model Detection & Addresses
+
+Different Pi models use different peripheral base addresses:
+
+- **Pi 1, Zero, Zero W**: 0x20000000
+- **Pi 2, 3, 3B, 3B+**: 0x3F000000
+- **Pi 4**: 0xFE000000
+- **Pi 5**: 0x107C000000 (RP1 at 0x1F00000000)
+
+The current code uses **Pi 4 addresses (0xFE000000)**.
+
+If you're using Pi 3, this is why it won't work!
+
+## Check Your Pi Model
+
+Look at the board - it should say:
+- "Raspberry Pi 3 Model B" 
+- "Raspberry Pi 4 Model B"
+- "Raspberry Pi 5"
+
+## Which Pi do you have?
+
+Please confirm your exact Pi model so I can build the correct version!
