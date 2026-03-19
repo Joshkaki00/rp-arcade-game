@@ -3,9 +3,6 @@ arm_64bit=1
 kernel=kernel8.img
 disable_commandline_tags=1
 
-# Skip OS check for bare-metal (required for RPi 5)
-os_check=0
-
 # GPU settings
 gpu_mem=128
 framebuffer_width=1280

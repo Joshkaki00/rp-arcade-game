@@ -6,9 +6,6 @@
 #define MAX_BULLETS 10
 #define MAX_ENEMIES 5
 
-// Set to 1 for auto-demo mode (Pi 5 without GPIO)
-#define AUTO_DEMO_MODE 1
-
 typedef struct {
     int x, y;
     int active;
@@ -62,29 +59,6 @@ int check_collision(GameObject *a, GameObject *b, int size) {
 }
 
 void game_update(void) {
-#if AUTO_DEMO_MODE
-    // Auto-demo mode for Raspberry Pi 5 (no GPIO input)
-    static int auto_move_counter = 0;
-    static int move_direction = 1;
-    
-    // Move player left and right automatically
-    player.x += move_direction * 3;
-    
-    // Bounce at screen edges
-    if (player.x <= 0) {
-        move_direction = 1;
-    } else if (player.x >= get_screen_width() - 20) {
-        move_direction = -1;
-    }
-    
-    // Auto-fire periodically
-    if (auto_move_counter % 15 == 0) {
-        fire_bullet();
-    }
-    
-    auto_move_counter++;
-#else
-    // Normal GPIO input mode
     if (button_left() && player.x > 0)
         player.x -= 5;
     if (button_right() && player.x < get_screen_width() - 20)
@@ -95,7 +69,6 @@ void game_update(void) {
         player.y += 5;
     if (button_fire())
         fire_bullet();
-#endif
     
     for (int i = 0; i < MAX_BULLETS; i++) {
         if (bullets[i].active) {
@@ -148,13 +121,4 @@ void game_render(void) {
         if (enemies[i].active)
             draw_rect(enemies[i].x, enemies[i].y, 20, 20, COLOR_RED);
     }
-    
-#if AUTO_DEMO_MODE
-    // Visual indicator that demo mode is active
-    // Draw a cyan border
-    draw_rect(0, 0, get_screen_width(), 5, COLOR_CYAN);
-    draw_rect(0, get_screen_height() - 5, get_screen_width(), 5, COLOR_CYAN);
-    draw_rect(0, 0, 5, get_screen_height(), COLOR_CYAN);
-    draw_rect(get_screen_width() - 5, 0, 5, get_screen_height(), COLOR_CYAN);
-#endif
 }
