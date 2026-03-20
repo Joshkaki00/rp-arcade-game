@@ -236,7 +236,11 @@ Estimated code: 1000+ lines
 Estimated effort: Weeks of development
 ```
 
-**Verdict:** Pi 5 unsuitable for simple bare-metal projects. Use Pi 4 or earlier.
+**Reality:** Pi 5 is more powerful and has better architecture. The RP1 chip is actually a design improvement that offloads peripheral management. For traditional OS-based programming, Pi 5 is superior to Pi 4.
+
+For bare-metal development specifically, Pi 5's PCIe-based approach requires significantly more initialization code compared to Pi 4's direct memory access. This isn't a limitation of the hardware - it's the trade-off between power/features and bare-metal simplicity.
+
+**If you have Pi 5:** The hardware is excellent. For Python, C++, or any OS-based development, use it! For bare-metal specifically, it's an advanced challenge rather than a beginner project.
 
 ---
 
@@ -470,15 +474,22 @@ Sections:
 ## Recommendations
 
 ### For Learning Bare-Metal Programming
-✅ **Use Raspberry Pi 4** or earlier  
-❌ **Avoid Raspberry Pi 5**
+**Pi 4 or earlier recommended** for beginners  
+**Pi 5 is advanced-level** for bare-metal
 
-**Reasons:**
-- Pi 4 simpler architecture
-- Direct memory-mapped peripherals (mostly)
-- Extensive documentation
-- Large community
-- Known working examples
+**Why Pi 4 for learning:**
+- Direct memory-mapped peripherals
+- Simpler architecture for teaching concepts
+- Extensive documentation and examples
+- Large community with known solutions
+
+**Why Pi 5 is challenging:**
+- PCIe initialization required
+- RP1 chip adds architectural complexity
+- Less bare-metal documentation available
+- Advanced project, not beginner-friendly
+
+**Important:** This is about the learning curve, not hardware quality. Pi 5 is superior hardware for most use cases.
 
 ### For Production Bare-Metal
 Consider:

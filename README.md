@@ -465,7 +465,13 @@ Would require (~1000+ lines):
 4. New mailbox addresses
 5. Different timing sources
 
-**Verdict:** Not worth the effort for a simple game. Stick with Pi 4.
+**Reality:** Pi 5 is a more powerful, modern board with better architecture. The RP1 chip approach is actually a design *improvement* - it offloads peripheral management. For bare-metal hobby projects though, it adds significant complexity compared to Pi 4's direct memory access model.
+
+**If you have Pi 5:**
+- It's excellent hardware! 
+- For OS-based development (Python, C++, etc.), Pi 5 is superior
+- For bare-metal learning, Pi 4's simpler architecture is more beginner-friendly
+- This project's limitations are about *our code*, not your hardware
 
 ## Documentation
 

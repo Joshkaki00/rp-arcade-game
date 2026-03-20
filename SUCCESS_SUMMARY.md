@@ -269,9 +269,11 @@ Total frame time:   ~16ms (60 FPS)
 ### ⚠️ Not Ideal For
 - Production applications
 - Full-featured games (need input/sound)
-- Raspberry Pi 5 projects
-- Projects requiring precise timing
+- **Raspberry Pi 5 bare-metal beginners** (advanced architecture)
+- Projects requiring precise hardware timing
 - Complex user interaction
+
+**Note on Pi 5:** If you have a Pi 5, it's excellent hardware! For traditional development (Python, C++, OS-based), use it and enjoy the performance. For bare-metal specifically, it's an advanced challenge due to the PCIe/RP1 architecture.
 
 ---
 
