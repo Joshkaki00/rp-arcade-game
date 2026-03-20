@@ -1,7 +1,8 @@
 #ifndef FRAMEBUFFER_H
 #define FRAMEBUFFER_H
 
-#define RGB(r, g, b) (((r) << 16) | ((g) << 8) | (b))
+// BGR format (byte order: Blue, Green, Red)
+#define RGB(r, g, b) (((b) << 16) | ((g) << 8) | (r))
 
 #define COLOR_BLACK     RGB(0, 0, 0)
 #define COLOR_WHITE     RGB(255, 255, 255)
